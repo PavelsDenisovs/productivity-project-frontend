@@ -1,17 +1,30 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const roboto = localFont({
+  src: [
+    {
+      path: './fonts/roboto/roboto.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/roboto/robotobold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: './fonts/roboto/robotoitalic.woff2',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: './fonts/roboto/robotobolditalic.woff2',
+      weight: '700',
+      style: 'italic',
+    },
+  ]
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={roboto.className}>
         {children}
       </body>
     </html>
