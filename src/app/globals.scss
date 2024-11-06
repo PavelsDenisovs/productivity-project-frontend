@@ -1,0 +1,31 @@
+// Primary Colors
+$primary-blue: #3C3B6E; 
+$primary-red: #FF3B3F; 
+$primary-white: #FFFFFF; 
+
+// Secondary Colors
+$secondary-light-blue: #EDF5FF; 
+$secondary-dark-blue: #2C2B5C; 
+$secondary-gray: #6C757D; 
+
+// Accent Colors
+$accent-light-gray: #F1F3F5; 
+$accent-border-gray: #CCCCCC; 
+$accent-hover-gray: #E6E8EB; 
+
+// Alert Colors
+$success-green: #28A745; 
+$warning-yellow: #FFC107; 
+$error-red: #DC3545;
+
+// Text Colors
+$text-primary: #212529;
+$text-secondary: #495057;
+$text-link: $primary-blue;
+
+// Shadows
+$shadow-color: rgba(0, 0, 0, 0.1); 
+
+.app-body, .app-body * {
+  color: $text-primary;
+}

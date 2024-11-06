@@ -18,9 +18,11 @@
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.25.7",
+    "@tanstack/react-query": "^5.59.0",
+    "@tanstack/react-query-devtools": "^5.59.0",
     "axios": "^1.7.7",
     "formik": "^2.4.6",
-    "next": "14.2.14",
+    "next": "^14.2.14",
     "react": "^18",
     "react-dom": "^18",
     "react-query": "^3.39.3",
