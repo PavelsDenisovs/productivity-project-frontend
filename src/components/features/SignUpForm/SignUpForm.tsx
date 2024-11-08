@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import styles from './SignUpForm.module.scss';
+import EyeIcon from '../../../assets/icons/eye.svg';
+import EyeSlashIcon from '../../../assets/icons/eye-slash.svg';
 
 const SignUpForm: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -10,6 +12,16 @@ const SignUpForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false);
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+  };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,27 +84,37 @@ const SignUpForm: React.FC = () => {
       </div>
       <div className={styles.form__group}>
         <label htmlFor="password" className={styles.form__label}>Password</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={styles.form__input}
-          required
-          autoComplete="new-password"
-        />
+        <div className={styles.form__inputWrapper}>
+          <input
+            type={isPasswordVisible ? "text" : "password"}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.form__input}
+            required
+            autoComplete="new-password"
+          />
+          {isPasswordVisible 
+          ? <EyeIcon onClick={togglePasswordVisibility} className={styles.form__icon} />
+          : <EyeSlashIcon onClick={togglePasswordVisibility} className={styles.form__icon} />}
+        </div>
       </div>
       <div className={styles.form__group}>
         <label htmlFor="confirmPassword" className={styles.form__label}>Confirm Password</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className={styles.form__input}
-          required
-          autoComplete="new-password"
-        />
+        <div className={styles.form__inputWrapper}>
+          <input
+            type={isConfirmPasswordVisible ? "text" : "password"}
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className={styles.form__input}
+            required
+            autoComplete="new-password"
+          />
+          {isConfirmPasswordVisible
+          ? <EyeIcon onClick={toggleConfirmPasswordVisibility} className={styles.form__icon} />
+          : <EyeSlashIcon onClick={toggleConfirmPasswordVisibility} className={styles.form__icon} />}
+        </div>
       </div>
       <button type="submit" className={styles.form__button}>Sign Up</button>
       {error && <p className={styles.error}>{error}</p>}
