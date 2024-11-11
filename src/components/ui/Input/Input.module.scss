@@ -1,0 +1,35 @@
+@import '../../../app/globals.scss';
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid $accent-medium-gray;
+  border-radius: 4px;
+  font-size: 16px;
+  color: $text-primary;
+  background-color: $primary-white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: $primary-blue;
+    box-shadow: 0 0 5px rgba($primary-blue, 0.3);
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $text-secondary;
+  }
+
+  &:disabled {
+    background-color: $primary-white;
+    cursor: not-allowed
+  }
+}
+
+.error {
+  border-color: $error-red;
+}
+
+.success {
+  border-color: $success-green;
+}

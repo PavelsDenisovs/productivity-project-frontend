@@ -1,30 +1,32 @@
 // Primary Colors
-$primary-blue: #3C3B6E; 
-$primary-red: #FF3B3F; 
-$primary-white: #FFFFFF; 
+$primary-blue: #0A3161;
+$primary-yellow: #FFD700;
+$primary-white: #FFFFFF;
 
 // Secondary Colors
-$secondary-light-blue: #EDF5FF; 
-$secondary-dark-blue: #2C2B5C; 
-$secondary-gray: #6C757D; 
+$secondary-light-blue: #5B92E5;
+$secondary-dark-blue: #1B3A73;
+$secondary-muted-yellow: #E0B300;
 
 // Accent Colors
-$accent-light-gray: #F1F3F5; 
-$accent-border-gray: #CCCCCC; 
-$accent-hover-gray: #E6E8EB; 
+$accent-light-gray: #F0F2F5;
+$accent-medium-gray: #B8BDC5;
+$accent-dark-gray: #7D838A;
 
 // Alert Colors
-$success-green: #28A745; 
-$warning-yellow: #FFC107; 
-$error-red: #DC3545;
+$success-green: #3BAF57;
+$warning-orange: #E69500;
+$error-red: #D84343;
+$info-blue: #4A90E2;
 
 // Text Colors
 $text-primary: #212529;
-$text-secondary: #495057;
-$text-link: $primary-blue;
+$text-secondary: #374151;
+$text-link: #0A3161;
+$text-muted: #6B7280;
 
 // Shadows
-$shadow-color: rgba(0, 0, 0, 0.1); 
+$shadow-color: rgba(0, 0, 0, 0.1);
 
 .app-body, .app-body * {
   color: $text-primary;
