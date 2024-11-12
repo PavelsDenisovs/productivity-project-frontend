@@ -17,13 +17,13 @@
 
 .form__label {
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .form__input {
   padding: 10px;
   font-size: 16px;
-  border: 1px solid $accent-border-gray;
+  border: 1px solid $accent-light-gray;
   border-radius: 4px;
   transition: border-color 0.3s;
 }
@@ -54,17 +54,13 @@
   }
 }
 
-.form__button {
-  display: block;
-  padding: 12px 28px;
-  font-size: 16px;
-  color: $primary-white;
-  background-color: $secondary-dark-blue;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 10px auto 0 auto;
+.form__buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+
+  & > button:only-child {
+    margin: 0 auto;
+  }
 }
 
 .error {
@@ -75,4 +71,28 @@
 .success {
   color: $success-green;
   font-size: 10px;
+}
+
+.form__progressBar {
+  width: 100%;
+  height: 8px;
+  background-color: $accent-light-gray;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.form__progressBarText {
+  color: $primary-blue;
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  margin: 2px 0 10px 0;
+}
+
+.form__progressBarFill {
+  height: 100%;
+  background-color: $primary-blue;
+  transition: width 0.3s ease;
+  border-radius: 4px;
 }

@@ -9,13 +9,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = ({
   label,
   variant = 'primary',
+  className = '',
   ...rest
 }) => {
+  const combinedClassName = `${styles.button} ${styles[variant]} ${className}`
+
   return (
-    <button
-      className={`${styles.button} ${styles[variant]}`}
-      {...rest}
-    >
+    <button className={combinedClassName} {...rest} >
       {label}
     </button>
   )
