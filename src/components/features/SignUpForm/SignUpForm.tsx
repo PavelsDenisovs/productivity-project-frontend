@@ -6,10 +6,11 @@ import ProgressBar from "./components/ProgressBar";
 import StepEmail from "./components/StepEmail";
 import StepVerification from "./components/StepVerification";
 import StepCredentials from "./components/StepCredentials";
+import { formData } from './types';
 
 const SignUpForm: React.FC = () => {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<formData>({
     email: '',
     displayName: '',
     username: '',
@@ -46,8 +47,14 @@ const SignUpForm: React.FC = () => {
   const handleNext = () => setStep((prevStep) => (prevStep + 1));
   const handleBack = () => setStep((prevStep) => (prevStep - 1));
 
-  const updateFormData = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value });
+  const updateFormData = (data: formData) => {
+    setFormData({
+      ...formData,
+      email: data.email && data.email,
+      displayName: data.displayName && data.displayName,
+      username: data.username && data.username,
+      password: data.password && data.password
+    });
   }
 
   return (
@@ -58,10 +65,10 @@ const SignUpForm: React.FC = () => {
       <ProgressBar step={step} totalSteps={3} />
 
       {step === 1 && (
-        <StepEmail 
-          formData={formData}
+        <StepEmail
           updateFormData={updateFormData}
           handleNext={handleNext}
+          formData={formData}
         />
       )}
       {step === 2 && (

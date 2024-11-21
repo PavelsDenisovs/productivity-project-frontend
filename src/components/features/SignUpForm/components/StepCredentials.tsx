@@ -4,15 +4,27 @@ import React, { useState } from 'react';
 import styles from '../SignUpForm.module.scss';
 import EyeIcon from '../../../../assets/icons/eye.svg';
 import EyeSlashIcon from '../../../../assets/icons/eye-slash.svg';
+import { formData } from '../types';
 
 interface StepCredentialsProps {
-  formData: { username: string, password: string };
-  updateFormData: (field: string, value: string) => void;
+  formData: formData;
+  updateFormData: (data: formData) => void;
   handleBack: () => void;
 }
 
 const StepCredentials: React.FC<StepCredentialsProps> = ({ formData, updateFormData, handleBack }) => {
+  const [localFormData, setLocalFormData] = useState({
+    username: '',
+    password: '',
+  });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const handleInputChange = (field: string, value: string) => {
+    setLocalFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -26,7 +38,7 @@ const StepCredentials: React.FC<StepCredentialsProps> = ({ formData, updateFormD
           type="text"
           id="username"
           value={formData.username}
-          onChange={(e) => updateFormData("username", e.target.value)}
+          onChange={(e) => handleInputChange("username", e.target.value)}
           className={styles.form__input}
           required
         />
@@ -38,7 +50,7 @@ const StepCredentials: React.FC<StepCredentialsProps> = ({ formData, updateFormD
             type={isPasswordVisible ? "text" : "password"}
             id="password"
             value={formData.password}
-            onChange={(e) => updateFormData("password", e.target.value)}
+            onChange={(e) => handleInputChange("password", e.target.value)}
             className={styles.form__input}
             required
           />
