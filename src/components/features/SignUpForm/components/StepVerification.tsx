@@ -8,17 +8,40 @@ import styles from '../SignUpForm.module.scss';
 interface StepVerificationProps {
   handleNext: () => void;
   handleBack: () => void;
+  email: string;
 }
 
-const StepVerification: React.FC<StepVerificationProps> = ({ handleNext, handleBack }) => {
-  const [code, setCode] = useState('');
+const apiUrl = process.env.REACT_APP_API_URL
 
-  const handleVerify = () => {
-    if (code === '123456') {
+const StepVerification: React.FC<StepVerificationProps> = ({ handleNext, handleBack, email }) => {
+  const [code, setCode] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  const handleVerify = async () => {
+    setError(null);
+
+    try {
+      const response = await fetch(`${apiUrl}/user/verify-code`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          email: email,
+          code: code,
+        }).toString(),
+      });
+
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.error || "Verification failed");
+      }
+
       handleNext();
-    } else {
-      alert("Invalid verification code");
-    }
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "An unexpected error occurred");
+    };
   };
 
   return (
@@ -33,6 +56,7 @@ const StepVerification: React.FC<StepVerificationProps> = ({ handleNext, handleB
           className={styles.form__input}
           required
         />
+        {error && <p className={styles.error}>{error}</p>}
       </div>
       <div className={styles.form__buttonsWrapper}>
         <Button label="Back" type="button" onClick={handleBack} />

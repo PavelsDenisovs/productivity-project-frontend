@@ -8,6 +8,8 @@ import StepVerification from "./components/StepVerification";
 import StepCredentials from "./components/StepCredentials";
 import { formData } from './types';
 
+const apiUrl = process.env.REACT_APP_API_URL
+
 const SignUpForm: React.FC = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<formData>({
@@ -23,7 +25,7 @@ const SignUpForm: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/user/register", {
+      const response = await fetch(`${apiUrl}/user/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -75,6 +77,7 @@ const SignUpForm: React.FC = () => {
         <StepVerification 
           handleNext={handleNext}
           handleBack={handleBack}
+          email={formData.email || ''}
         />
       )}
       {step === 3 && (

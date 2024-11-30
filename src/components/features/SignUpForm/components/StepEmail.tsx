@@ -13,6 +13,8 @@ interface StepEmailProps {
   formData: formData;
 }
 
+const apiUrl = process.env.REACT_APP_API_URL
+
 const StepEmail: React.FC<StepEmailProps> = ({ updateFormData, handleNext, formData }) => {
   const [localFormData, setLocalFormData] = useState({
     email: formData.email || '',
@@ -67,7 +69,7 @@ const StepEmail: React.FC<StepEmailProps> = ({ updateFormData, handleNext, formD
     }
 
     try {
-      const response = await fetch("http://localhost:8080/user/validate", {
+      const response = await fetch(`${apiUrl}/user/validate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -86,10 +88,25 @@ const StepEmail: React.FC<StepEmailProps> = ({ updateFormData, handleNext, formD
         return;
       }
 
+      const verificationResponse = await fetch(`${apiUrl}/user/send-verification`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          email: localFormData.email,
+        }).toString(),
+      });
+  
+      if (!verificationResponse.ok) {
+        const verificationData = await verificationResponse.json();
+        throw new Error(verificationData.error || "Failed to send verification code");
+      }
+
       updateFormData(localFormData);
       handleNext();
     } catch (err: any) {
-      throw new Error(err);
+      console.error(err.message);
     }
 
   };

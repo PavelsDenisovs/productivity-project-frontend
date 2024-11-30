@@ -66,7 +66,6 @@ const StepCredentials: React.FC<StepCredentialsProps> = ({ formData, updateFormD
           onClick={handleBack}
         />
       </div>
-      
     </>
   )
 }
