@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import styles from './SignUpForm.module.scss';
-import { formData } from './types';
 import Input from "@/components/ui/Input/Input";
-import { useRouter } from "next/router";
+import Button from "@/components/ui/Button/Button";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   email: string;
@@ -26,9 +26,9 @@ const SignUpForm: React.FC = () => {
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const routes = useRouter();
-
-  const handleChange = (field: string, value: string) => {
+  const router = useRouter();
+  
+  const handleChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -57,7 +57,7 @@ const SignUpForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validate()) return;
@@ -65,7 +65,30 @@ const SignUpForm: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`$`)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        }),
+      });
+
+      const data: ApiResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+
+      router.push('/verify-email');
+    } catch(error) {
+      setErrors({
+        email: error instanceof Error ? error.message : 'Registration failed'
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -73,8 +96,41 @@ const SignUpForm: React.FC = () => {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div>
         <label htmlFor="email">email</label>
-        <Input onChange={(e) => handleChange("email", e.target.value)} value={formData.email} />
+        <Input
+          type="email"
+          id="email"
+          value={formData.email} 
+          onChange={(e) => handleChange("email", e.target.value)}
+        />
+        {errors.email && <p className={styles.error}>{errors.email}</p>}
       </div>
+      <div>
+        <label htmlFor="password">password</label>
+        <Input
+          type="password"
+          id="password"
+          value={formData.password} 
+          onChange={(e) => handleChange("password", e.target.value)}
+        />
+        {errors.password && <p className={styles.error}>{errors.password}</p>}
+      </div>
+      <div>
+        <label htmlFor="confirmPassword">confirmPassword</label>
+        <Input
+          type="confirmPassword"
+          id="confirmPassword"
+          value={formData.confirmPassword} 
+          onChange={(e) => handleChange("confirmPassword", e.target.value)}
+        />
+        {errors.confirmPassword && <p className={styles.error}>{errors.confirmPassword}</p>}
+      </div>
+
+      <Button
+        label={isSubmitting ? 'Signing Up...' : 'Sign Up'}
+        type="submit" 
+        disabled={isSubmitting}
+        className={styles.submitButton}
+      />
     </form>
   )
 }
