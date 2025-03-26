@@ -2,91 +2,79 @@
 
 import { useState } from "react";
 import styles from './SignUpForm.module.scss';
-import ProgressBar from "./components/ProgressBar";
-import StepEmail from "./components/StepEmail";
-import StepVerification from "./components/StepVerification";
-import StepCredentials from "./components/StepCredentials";
 import { formData } from './types';
+import Input from "@/components/ui/Input/Input";
+import { useRouter } from "next/router";
 
-const apiUrl = process.env.REACT_APP_API_URL
+interface FormData {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface ApiResponse {
+  success: boolean;
+  message?: string;
+  error?: string;
+}
 
 const SignUpForm: React.FC = () => {
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState<formData>({
+  const [formData, setFormData] = useState<FormData>({
     email: '',
-    displayName: '',
-    username: '',
     password: '',
+    confirmPassword: '',
   });
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const routes = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
 
-    try {
-      const response = await fetch(`${apiUrl}/user/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Registration failed")
-      }
-
-      setSuccess("Registration successeful!");
-      setError(null);
-    } catch (err: any) {
-      setError(err.message);
-      setSuccess(null);
+    if (errors[field]) {
+      setErrors(prev => ({...prev, [field]: ''}));
     }
+  };
+
+  const validate = (): boolean => {
+    const newErrors: Partial<FormData> = {};
+    
+    if (!formData.email.includes('@')) {
+      newErrors.email = 'Valid email required';
+    }
+    
+    if (formData.password.length < 8) {
+      newErrors.password = 'Password must be 8+ characters';
+    }
+    
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords must match';
+    }
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0;
   }
 
-  const handleNext = () => setStep((prevStep) => (prevStep + 1));
-  const handleBack = () => setStep((prevStep) => (prevStep - 1));
+  const handleSubmit = () => {
+    e.preventDefault();
 
-  const updateFormData = (data: formData) => {
-    setFormData({
-      ...formData,
-      email: data.email && data.email,
-      displayName: data.displayName && data.displayName,
-      username: data.username && data.username,
-      password: data.password && data.password
-    });
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(`$`)
+    }
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      {error && <p className={styles.error}>{error}</p>}
-      {success && <p className={styles.success}>{success}</p>}
-
-      <ProgressBar step={step} totalSteps={3} />
-
-      {step === 1 && (
-        <StepEmail
-          updateFormData={updateFormData}
-          handleNext={handleNext}
-          formData={formData}
-        />
-      )}
-      {step === 2 && (
-        <StepVerification 
-          handleNext={handleNext}
-          handleBack={handleBack}
-          email={formData.email || ''}
-        />
-      )}
-      {step === 3 && (
-        <StepCredentials 
-          formData={formData}
-          updateFormData={updateFormData}
-          handleBack={handleBack}
-        />
-      )}
+      <div>
+        <label htmlFor="email">email</label>
+        <Input onChange={(e) => handleChange("email", e.target.value)} value={formData.email} />
+      </div>
     </form>
   )
 }

@@ -1,0 +1,21 @@
+@import '../../../app/globals.scss';
+
+.note {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.note__input {
+  display: block;
+  width: 50%;
+}
+
+.note__create_btn {
+  display: flex;
+  justify-content: space-between;
+
+  & > button:only-child {
+    margin: 0 auto;
+  }
+}
