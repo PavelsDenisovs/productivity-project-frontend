@@ -82,7 +82,7 @@ const SignUpForm: React.FC = () => {
         throw new Error(data.error || 'Registration failed');
       }
 
-      router.push('/verify-email');
+      router.push('/auth/verify-email');
     } catch(error) {
       setErrors({
         email: error instanceof Error ? error.message : 'Registration failed'
