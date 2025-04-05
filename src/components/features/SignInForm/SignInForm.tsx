@@ -11,7 +11,6 @@ interface FormData {
 }
 
 interface ApiResponse {
-  success: boolean;
   message?: string;
   error?: string;
 }

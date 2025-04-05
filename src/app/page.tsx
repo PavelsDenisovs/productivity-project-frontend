@@ -11,6 +11,9 @@ export default function Home() {
       <Link href="/auth/signup">
         <Button label="Sign up" /> 
       </Link>
+      <Link href="/auth/verify-email">
+        <Button label="Verify email" /> 
+      </Link>
       <Note />
     </>
   )

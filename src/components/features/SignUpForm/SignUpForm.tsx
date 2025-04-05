@@ -13,7 +13,6 @@ interface FormData {
 }
 
 interface ApiResponse {
-  success: boolean;
   message?: string;
   error?: string;
 }
@@ -82,6 +81,7 @@ const SignUpForm: React.FC = () => {
         throw new Error(data.error || 'Registration failed');
       }
 
+      localStorage.setItem("unverifiedEmail", formData.email)
       router.push('/auth/verify-email');
     } catch(error) {
       setErrors({
