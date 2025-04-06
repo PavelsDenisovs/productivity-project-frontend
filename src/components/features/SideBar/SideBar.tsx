@@ -1,26 +1,19 @@
 "use client"
 
-import { useState } from "react";
 import styles from "./SideBar.module.scss"
+import { Note } from "@/types";
 
-interface Note {
-  date: string;
-  content: string;
+interface SideBarProps {
+  notes: Note[]
+  selectedNote: Note | null
+  onSelectNote: (note: Note) => void
 }
 
-const initialNotes: Note[] = [
-  { date: "2025-04-04", content: "Today I started working on the productivity app..." },
-  { date: "2025-03-31", content: "Finalized the authentication flow..." },
-  // Add all other dates with empty content
-  ...Array(20).fill({ date: "", content: "" }).map((_, i) => ({
-    date: `2025-03-${30 - i}`,
-    content: ""
-  }))
-].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-const SideBar: React.FC = () => {
-  const [notes] = useState<Note[]>(initialNotes);
-
+const SideBar: React.FC<SideBarProps> = ({
+  notes,
+  selectedNote,
+  onSelectNote,
+}) => {
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebar__container}>
@@ -28,7 +21,10 @@ const SideBar: React.FC = () => {
           {notes.map(note => (
             <div
               key={note.date}
-              className={styles.sidebar__note}
+              className={`${styles.sidebar__note} ${
+                selectedNote?.date === note.date ? styles.active : ''
+              }`}
+              onClick={() => onSelectNote(note)}
             >
               {note.date}
             </div>
