@@ -12,7 +12,7 @@ interface SideBarProps {
 const SideBar: React.FC<SideBarProps> = ({
   notes,
   selectedNote,
-  onSelectNote,
+  onSelectNote
 }) => {
   return (
     <div className={styles.sidebar}>
