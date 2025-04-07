@@ -31,3 +31,15 @@ $shadow-color: rgba(0, 0, 0, 0.1);
 .app-body, .app-body * {
   color: $text-primary;
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
