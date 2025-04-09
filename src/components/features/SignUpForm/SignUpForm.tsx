@@ -80,8 +80,9 @@ const SignUpForm: React.FC = () => {
       if (!response.ok) {
         throw new Error(data.error || 'Registration failed');
       }
-
-      localStorage.setItem("unverifiedEmail", formData.email)
+      if (typeof window !== undefined) {
+        localStorage.setItem("unverifiedEmail", formData.email)
+      }
       router.push('/auth/verify-email');
     } catch(error) {
       setErrors({

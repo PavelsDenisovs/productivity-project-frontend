@@ -12,7 +12,10 @@ interface ApiResponse {
 
 const VerifyEmailForm: React.FC = () => {
   const [code, setCode] = useState("");
-  const email = localStorage.getItem("unverifiedEmail");
+  const [email, setEmail] = useState("");
+  if (typeof window !== undefined) {
+    setEmail(localStorage.getItem("unverifiedEmail") ?? "");
+  }
 
   const router = useRouter();
 

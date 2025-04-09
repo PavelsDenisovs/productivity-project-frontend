@@ -19,8 +19,10 @@ const Note: React.FC = () => {
   useEffect(() => {
     setIsClient(true)
     try {
-      const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (saved) setNotes(JSON.parse(saved))
+      if (typeof window !== undefined) {
+        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (saved) setNotes(JSON.parse(saved))
+      }
     } catch (error) {
       console.error("Failed to load notes:", error);
     }
