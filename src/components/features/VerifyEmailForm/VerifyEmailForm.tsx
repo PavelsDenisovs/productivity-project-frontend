@@ -49,6 +49,27 @@ const VerifyEmailForm: React.FC = () => {
     }
   }
 
+  const handleClick = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/resend-verification`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ email: email }),
+      });
+
+      const data: ApiResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+    } catch(error) {
+      console.error(error ? error : "verification failed")
+    }
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -64,6 +85,10 @@ const VerifyEmailForm: React.FC = () => {
           label="Submit"
         />
       </form>
+      <Button 
+        label="Resend the code"
+        onClick={handleClick}
+      />
     </>
   );
 }
