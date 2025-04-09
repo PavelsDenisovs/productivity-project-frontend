@@ -7,3 +7,10 @@ export interface Note {
   created_at: string;
   updated_at: string;
 }
+
+export interface NotesApiResponse {
+  message?: string;
+  error?: string;
+  note?: Note;
+  notes?: Note[];
+}
