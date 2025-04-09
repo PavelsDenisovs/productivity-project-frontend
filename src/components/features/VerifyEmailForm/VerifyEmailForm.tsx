@@ -3,7 +3,7 @@
 import Button from "@/components/ui/Button/Button";
 import Input from "@/components/ui/Input/Input";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ApiResponse {
   message?: string;
@@ -13,9 +13,12 @@ interface ApiResponse {
 const VerifyEmailForm: React.FC = () => {
   const [code, setCode] = useState("");
   const [email, setEmail] = useState("");
-  if (typeof window !== undefined) {
-    setEmail(localStorage.getItem("unverifiedEmail") ?? "");
-  }
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("unverifiedEmail");
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
 
   const router = useRouter();
 
