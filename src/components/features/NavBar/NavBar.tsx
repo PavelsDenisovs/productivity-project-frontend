@@ -31,6 +31,8 @@ const NavBar: React.FC<NavBarProps> = ({ email }) => {
       if (!response.ok) {
         throw new Error(data.error || "Failing logout")
       }
+
+      window.location.reload();
     } catch (err) {
       console.error(err)
     }
