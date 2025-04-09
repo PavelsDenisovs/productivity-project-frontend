@@ -3,41 +3,17 @@
 import Button from "@/components/ui/Button/Button"
 import Link from "next/link"
 import styles from "./NavBar.module.scss"
-import { useEffect, useState } from "react"
 
 interface apiResponse {
   email?: string;
   error?: string;
 }
 
-const NavBar: React.FC = () => {
-  const [email, setEmail] = useState<string | undefined>(undefined);
+interface NavBarProps {
+  email?: string;
+}
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/current-user`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        })
-
-        const data: apiResponse = await response.json();
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}` || "Fetching current user failed")
-        }
-
-        setEmail(data.email);
-      } catch (err) {
-        console.error("Fetch error:", err);
-      }
-    }
-
-    fetchCurrentUser();
-  }, [])
+const NavBar: React.FC<NavBarProps> = ({ email }) => {
   const handleLogout = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -55,8 +31,6 @@ const NavBar: React.FC = () => {
       if (!response.ok) {
         throw new Error(data.error || "Failing logout")
       }
-
-      setEmail(undefined);
     } catch (err) {
       console.error(err)
     }

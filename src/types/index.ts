@@ -9,8 +9,16 @@ export interface Note {
 }
 
 export interface NotesApiResponse {
-  message?: string;
-  error?: string;
   note?: Note;
+  error?: string;
+}
+
+export interface NoteListResponse {
   notes?: Note[];
+  error?: string;
+}
+
+export interface UserApiResponse {
+  email?: string;
+  error?: string;
 }

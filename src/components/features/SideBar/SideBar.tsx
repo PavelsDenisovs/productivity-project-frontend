@@ -4,9 +4,9 @@ import styles from "./SideBar.module.scss"
 import { Note } from "@/types";
 
 interface SideBarProps {
-  notes: Note[]
-  selectedNote: Note | null
-  onSelectNote: (note: Note) => void
+  notes: Note[] | undefined;
+  selectedNote: Note | null;
+  onSelectNote: (note: Note) => void;
 }
 
 const SideBar: React.FC<SideBarProps> = ({
@@ -18,7 +18,7 @@ const SideBar: React.FC<SideBarProps> = ({
     <div className={styles.sidebar}>
       <div className={styles.sidebar__container}>
         <div className={styles.sidebar__notesList}>
-          {notes.map(note => (
+          {notes?.map(note => (
             <div
               key={note.date}
               className={`${styles.sidebar__note} ${
