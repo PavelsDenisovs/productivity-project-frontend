@@ -118,7 +118,7 @@ const SignUpForm: React.FC = () => {
       <div>
         <label htmlFor="confirmPassword">confirmPassword</label>
         <Input
-          type="confirmPassword"
+          type="password"
           id="confirmPassword"
           value={formData.confirmPassword} 
           onChange={(e) => handleChange("confirmPassword", e.target.value)}
