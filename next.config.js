@@ -8,7 +8,7 @@ const nextConfig = {
     return config;
   },
   env: {
-    REACT_APP_API_URL: process.env.REACT_APP_API_URL,
+    NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
   },
 };
 
