@@ -2,7 +2,7 @@
 
 import NavBar from "@/components/features/NavBar/NavBar";
 import NoteWorkspace from "@/components/features/NoteWorkspace/NoteWorkspace";
-import SideBar from "@/components/features/SideBar/SideBar";
+import Sidebar from "@/components/features/Sidebar/Sidebar";
 import { Note, NoteListResponse, NotesApiResponse } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -40,6 +40,7 @@ export default function Home() {
   const [notes, setNotes] = useState<Note[]>();
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [prevSelectedNote, setPrevSelectedNote] = useState<Note | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -154,16 +155,23 @@ export default function Home() {
     }
   }
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(prev => !prev);
+  };
+
   return (
     <div className="app-container">
       <NavBar
         email={email}
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
       />
       <div className="main-content">
-        <SideBar
+        <Sidebar
           notes={notes}
           onSelectNote={setSelectedNote}
           selectedNote={selectedNote}
+          isSidebarOpen={isSidebarOpen}
         />
         <NoteWorkspace
           selectedNote={selectedNote}

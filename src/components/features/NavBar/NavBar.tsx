@@ -11,9 +11,11 @@ interface apiResponse {
 
 interface NavBarProps {
   email?: string;
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ email }) => {
+const NavBar: React.FC<NavBarProps> = ({ email, isSidebarOpen, toggleSidebar }) => {
   const handleLogout = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -39,11 +41,12 @@ const NavBar: React.FC<NavBarProps> = ({ email }) => {
   }
   return (
     <nav className={styles.nav}>
+      <button className={styles.toggleBtn} onClick={toggleSidebar}>
+        {isSidebarOpen ? "← Close" : "☰ Menu"}
+      </button>
+
       {email ? (
-        <>
-          <p>{`you're signed in: ${email}`}</p>
-          <Button onClick={handleLogout} label="Logout"/>
-        </>
+        <Button onClick={handleLogout} label="Logout"/>
       ) : (
         <>
           <Link href="/auth/signin">

@@ -76,11 +76,10 @@
   // Mobile responsiveness
   @media (max-width: 768px) {
     flex-wrap: wrap;
-    padding: 0.8rem;
+    padding: 12px;
     gap: 0.8rem;
     
     p {
-      order: -1;
       width: 100%;
       text-align: center;
       padding-bottom: 0.5rem;
@@ -95,5 +94,21 @@
       padding: 0.5rem;
       font-size: 0.8rem;
     }
+  }
+}
+
+.toggleBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 1rem;
+
+  &:hover {
+    color: var(--primary-color, #2196f3);
+  }
+
+  @media (min-width: 769px) {
+    display: none;
   }
 }

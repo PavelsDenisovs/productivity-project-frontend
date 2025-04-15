@@ -11,8 +11,16 @@
   color: #e0e0e0;
   border-right: 1px solid #3a3a3a;
   z-index: 100;
-  transition: width 0.3s ease;
+  transition: transform 0.3s ease;
   overflow: hidden;
+
+  &--closed {
+    transform: translateX(-100%);
+  
+    @media (min-width: 769px) {
+      transform: translateX(0);
+    }
+  }
 
   &__container {
     height: 100%;
@@ -84,7 +92,8 @@
 @media (max-width: 768px) {
   .sidebar {
     width: 200px;
-    
+    margin-top: 65px;
+
     &__note {
       padding: 0.6rem;
       font-size: 0.85rem;

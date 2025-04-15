@@ -7,15 +7,17 @@ interface SideBarProps {
   notes: Note[] | undefined;
   selectedNote: Note | null;
   onSelectNote: (note: Note) => void;
+  isSidebarOpen: boolean;
 }
 
-const SideBar: React.FC<SideBarProps> = ({
+const Sidebar: React.FC<SideBarProps> = ({
   notes,
   selectedNote,
-  onSelectNote
+  onSelectNote,
+  isSidebarOpen,
 }) => {
   return (
-    <div className={styles.sidebar}>
+    <div className={`${styles.sidebar} ${!isSidebarOpen ? styles['sidebar--closed'] : ''}`}>
       <div className={styles.sidebar__container}>
         <div className={styles.sidebar__notesList}>
           {notes?.map(note => (
@@ -35,4 +37,4 @@ const SideBar: React.FC<SideBarProps> = ({
   )
 }
 
-export default SideBar;
+export default Sidebar;
