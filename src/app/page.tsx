@@ -1,8 +1,6 @@
 "use client"
 
-import Navbar from "@/components/features/Navbar/Navbar";
 import NoteWorkspace from "@/components/features/NoteWorkspace/NoteWorkspace";
-import Sidebar from "@/components/features/Sidebar/Sidebar";
 import { Note, NoteListResponse, NotesApiResponse } from "@/types";
 import { useEffect, useState } from "react";
 
