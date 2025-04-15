@@ -43,7 +43,6 @@ const SignInForm: React.FC = () => {
     setErrors(newErrors);
     return Object.keys(errors).length === 0;
   }
-  console.log("Backend URL1:", process.env.NEXT_PUBLIC_BACKEND_URL);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +50,6 @@ const SignInForm: React.FC = () => {
     if (!validate()) return;
 
     try {
-      console.log("Backend URL2:", process.env.NEXT_PUBLIC_BACKEND_URL);
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
         method: "POST",
         headers: {
