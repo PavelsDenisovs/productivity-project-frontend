@@ -1,8 +1,8 @@
 "use client"
 
-import NavBar from "@/components/features/NavBar/NavBar";
+import Navbar from "@/components/features/Navbar/Navbar";
 import NoteWorkspace from "@/components/features/NoteWorkspace/NoteWorkspace";
-import Sidebar from "@/components/features/Sidebar/SideBar";
+import Sidebar from "@/components/features/Sidebar/Sidebar";
 import { Note, NoteListResponse, NotesApiResponse } from "@/types";
 import { useEffect, useState } from "react";
 
@@ -161,7 +161,7 @@ export default function Home() {
 
   return (
     <div className="app-container">
-      <NavBar
+      <Navbar
         email={email}
         isSidebarOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}

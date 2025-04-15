@@ -1,16 +1,16 @@
 "use client"
 
-import styles from "./SideBar.module.scss"
+import styles from "./Sidebar.module.scss"
 import { Note } from "@/types";
 
-interface SideBarProps {
+interface SidebarProps {
   notes: Note[] | undefined;
   selectedNote: Note | null;
   onSelectNote: (note: Note) => void;
   isSidebarOpen: boolean;
 }
 
-const Sidebar: React.FC<SideBarProps> = ({
+const Sidebar: React.FC<SidebarProps> = ({
   notes,
   selectedNote,
   onSelectNote,

@@ -2,20 +2,20 @@
 
 import Button from "@/components/ui/Button/Button"
 import Link from "next/link"
-import styles from "./NavBar.module.scss"
+import styles from "./Navbar.module.scss"
 
 interface apiResponse {
   email?: string;
   error?: string;
 }
 
-interface NavBarProps {
+interface NavbarProps {
   email?: string;
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ email, isSidebarOpen, toggleSidebar }) => {
+const Navbar: React.FC<NavbarProps> = ({ email, isSidebarOpen, toggleSidebar }) => {
   const handleLogout = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -63,4 +63,4 @@ const NavBar: React.FC<NavBarProps> = ({ email, isSidebarOpen, toggleSidebar }) 
   )
 }
 
-export default NavBar
+export default Navbar
