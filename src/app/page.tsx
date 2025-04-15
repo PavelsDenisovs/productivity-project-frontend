@@ -2,7 +2,7 @@
 
 import NavBar from "@/components/features/NavBar/NavBar";
 import NoteWorkspace from "@/components/features/NoteWorkspace/NoteWorkspace";
-import Sidebar from "@/components/features/Sidebar/Sidebar";
+import Sidebar from "@/components/features/Sidebar/SideBar";
 import { Note, NoteListResponse, NotesApiResponse } from "@/types";
 import { useEffect, useState } from "react";
 
